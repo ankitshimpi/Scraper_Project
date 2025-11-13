@@ -742,6 +742,6 @@ def _open_browser(port: int):
     webbrowser.open_new(f"http://127.0.0.1:{port}/login")
 
 if __name__ == "__main__":
-    PORT = int(os.environ.get("PORT", 5000))
+    PORT = int(os.environ.get("PORT", 2000))
     threading.Timer(1.0, _open_browser, args=(PORT,)).start()
     serve(app, host="127.0.0.1", port=PORT)

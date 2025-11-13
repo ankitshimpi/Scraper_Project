@@ -1,0 +1,7 @@
+Flask
+requests
+pandas
+openpyxl
+gunicorn
+bs4
+lxml
