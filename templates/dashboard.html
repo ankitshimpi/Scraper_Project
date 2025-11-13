@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="neon-heading mb-3">Spyra</h1>
+
+<div class="grid-2">
+
+  <!-- Products scraper card -->
+  <div class="neon-card">
+    <div class="d-flex align-items-start gap-3 mb-2">
+      <!-- document icon -->
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" class="text-cyan" aria-hidden="true">
+        <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"
+              stroke="currentColor" stroke-width="1.5"/>
+        <path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <div>
+        <h2 class="neon-heading" style="font-size:1.9rem;">Products scraper</h2>
+        <p class="neon-sub">Run the Products scraper directly by pasting ASINs.</p>
+      </div>
+    </div>
+
+    <a class="neon-btn-big" href="{{ url_for('amazon_products_page') }}">Open</a>
+  </div>
+
+  <!-- Competitor scraper → Products card -->
+  <div class="neon-card">
+    <div class="d-flex align-items-start gap-3 mb-2">
+      <!-- search icon -->
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" class="text-cyan" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h2 class="neon-heading" style="font-size:1.9rem;">Competitor scraper → Products</h2>
+        <p class="neon-sub">Scrape competitors, then auto-run Products on found ASINs.</p>
+      </div>
+    </div>
+
+    <a class="neon-btn-big" href="{{ url_for('competitor_page') }}">Open</a>
+  </div>
+
+  <!-- Ad Report → Products card (NEW) -->
+  <div class="neon-card">
+    <div class="d-flex align-items-start gap-3 mb-2">
+      <!-- spreadsheet icon -->
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" class="text-cyan" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="2"
+              stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 8h8M8 12h8M8 16h4"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h2 class="neon-heading" style="font-size:1.9rem;">Ad Report → Products</h2>
+        <p class="neon-sub">Extract ASINs from your ad report Excel, then auto-run Products.</p>
+      </div>
+    </div>
+
+    <a class="neon-btn-big" href="{{ url_for('adreport_page') }}">Open</a>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="neon-heading mb-1">Products scraper</h2>
+<p class="neon-sub">Run the Products scraper directly by pasting ASINs.</p>
+
+<div class="neon-card mb-4">
+  <form method="post" id="amazonForm" action="{{ url_for('run_products') }}">
+    <label>ASINs</label>
+    <textarea class="form-control mb-3" name="asin_input"
+              placeholder="Enter ASINs separated by spaces or commas" required></textarea>
+
+    <label>Marketplace</label>
+    <select class="form-control mb-3" name="marketplace" required>
+      <option value="">-- Select Marketplace --</option>
+      <option value="india">Amazon India</option>
+      <option value="us">Amazon USA</option>
+      <option value="sg">Amazon Singapore</option>
+      <option value="ae">Amazon UAE</option>
+      <option value="uk">Amazon UK</option>
+    </select>
+
+    <label>Save folder path</label>
+    <input class="form-control mb-3" type="text" name="save_path" placeholder="Enter save folder path" required>
+
+    <label>File name</label>
+    <input class="form-control mb-3" type="text" name="file_name" placeholder="Enter file name" required>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary" type="submit">Run Products</button>
+      <a class="btn btn-outline-secondary" href="{{ url_for('dashboard') }}">Back</a>
+    </div>
+  </form>
+
+  <div id="amazonLoader" class="text-center mt-3" style="display:none;">
+    <div class="spinner-border" role="status"></div>
+    <p id="amazonStatus" class="mt-2">Starting Products scraper...</p>
+  </div>
+</div>
+
+{% if tables %}
+  <h4 class="mt-4">Scraped Data</h4>
+  <a href="{{ url_for('download', file=saved_file) }}" class="neon-btn-big mb-3">Download Excel</a>
+
+  {% for sheet_name, table_html in tables.items() %}
+    <h5 class="mt-4 text-cyan">{{ sheet_name }}</h5>
+    <div class="table-responsive">{{ table_html | safe }}</div>
+  {% endfor %}
+{% endif %}
+
+<!-- jQuery + DataTables (unchanged functionality) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+$(function(){
+  $("#amazonForm").on("submit", function(){
+    $("#amazonLoader").show();
+    $("#amazonStatus").text("Starting Amazon Products scraper...");
+  });
+
+  $(".datatable").each(function(){
+    $(this).DataTable({
+      pageLength: 10,
+      lengthMenu: [5, 10, 25, 50, 100],
+      ordering: true,
+      searching: true
+    });
+  });
+});
+</script>
+{% endblock %}

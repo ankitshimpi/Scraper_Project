@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="neon-heading mb-1">Competitor scraper → Products</h2>
+<p class="neon-sub">Scrape competitors, then auto-run Products on found ASINs.</p>
+
+<div class="neon-card mb-4">
+  <form method="post" id="competitorForm" action="{{ url_for('run_competitor') }}">
+    <label>Seed ASINs</label>
+    <textarea class="form-control mb-3" name="asin_input"
+              placeholder="Seed ASINs (separated by spaces or commas)" required></textarea>
+
+    <label>Marketplace</label>
+    <select class="form-control mb-3" name="marketplace" required>
+      <option value="">-- Select Marketplace --</option>
+      <option value="india">Amazon India (.in)</option>
+      <option value="us">Amazon USA (.com)</option>
+      <option value="uk">Amazon UK (.co.uk)</option>
+      <option value="de">Amazon Germany (.de)</option>
+      <option value="fr">Amazon France (.fr)</option>
+      <option value="it">Amazon Italy (.it)</option>
+      <option value="es">Amazon Spain (.es)</option>
+      <option value="ca">Amazon Canada (.ca)</option>
+      <option value="mx">Amazon Mexico (.com.mx)</option>
+      <option value="nl">Amazon Netherlands (.nl)</option>
+      <option value="jp">Amazon Japan (.co.jp)</option>
+      <option value="au">Amazon Australia (.com.au)</option>
+      <option value="ae">Amazon UAE (.ae)</option>
+      <option value="br">Amazon Brazil (.com.br)</option>
+      <option value="sa">Amazon Saudi Arabia (.sa)</option>
+    </select>
+
+    <label>Save folder path</label>
+    <input class="form-control mb-3" type="text" name="save_path" placeholder="Enter save folder path" required>
+
+    <label>Base file name</label>
+    <input class="form-control mb-3" type="text" name="file_name" placeholder="Base file name (e.g., 'run1')" required>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-success" type="submit">Run Competitor → Products</button>
+      <a class="btn btn-outline-secondary" href="{{ url_for('dashboard') }}">Back</a>
+    </div>
+  </form>
+
+  <div id="competitorLoader" class="text-center mt-3" style="display:none;">
+    <div class="spinner-border" role="status"></div>
+    <p id="competitorStatus" class="mt-2">Running Competitor... will launch Products next...</p>
+  </div>
+</div>
+
+{% if tables %}
+  <h4 class="mt-4">Scraped Data</h4>
+  <a href="{{ url_for('download', file=saved_file) }}" class="neon-btn-big mb-3">Download Excel</a>
+
+  {% for sheet_name, table_html in tables.items() %}
+    <h5 class="mt-4 text-cyan">{{ sheet_name }}</h5>
+    <div class="table-responsive">{{ table_html | safe }}</div>
+  {% endfor %}
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+$(function(){
+  $("#competitorForm").on("submit", function(){
+    $("#competitorLoader").show();
+    $("#competitorStatus").text("Running ... will launch Products next...");
+  });
+
+  $(".datatable").each(function(){
+    $(this).DataTable({
+      pageLength: 10,
+      lengthMenu: [5, 10, 25, 50, 100],
+      ordering: true,
+      searching: true
+    });
+  });
+});
+</script>
+{% endblock %}

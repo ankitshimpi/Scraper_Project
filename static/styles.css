@@ -1,0 +1,208 @@
+/* ==========================================================================
+   Spyra Neon UI — Global Theme
+   ========================================================================== */
+
+/* Inter font (kept from your original) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root{
+  --bg-1:#0b0f24;
+  --bg-2:#0e1633;
+  --text-1:#cfe7ff;
+  --muted:#8ea8c9;
+  --neon-1:#34d5ff;     /* cyan */
+  --neon-2:#8a5bff;     /* violet */
+  --neon-pink:#ff4bd6;
+  --card:#0e1835cc;     /* glass */
+  --border:#2a3b6a;
+  --success:#23d18b;
+  --danger:#ff5c7a;
+}
+
+/* ===== Global ===== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  margin:0;color:var(--text-1);
+  /* Gradient background; if you keep bg.jpg it will sit beneath the gradient */
+  background:
+    radial-gradient(80% 100% at 10% 0%, #141b3f 0%, var(--bg-2) 40%, var(--bg-1) 100%),
+    linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)),
+    url("bg.jpg") no-repeat center/cover fixed;
+  line-height:1.55;
+}
+
+/* ========================================================================== */
+/* Top Bar / Branding                                                         */
+/* ========================================================================== */
+.navbar{
+  background: linear-gradient(90deg, rgba(20,27,63,.65), rgba(14,24,53,.25)) !important;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(10px);
+  padding:12px 0;
+}
+.navbar-brand{font-weight:800;letter-spacing:.5px}
+.brand-wrap{display:flex;align-items:center;gap:.75rem}
+.brand-logo{
+  width:28px;height:28px;border-radius:8px;
+  background: radial-gradient(circle at 30% 30%, var(--neon-1), transparent 55%),
+              radial-gradient(circle at 70% 70%, var(--neon-2), transparent 55%);
+  box-shadow:0 0 30px rgba(52,213,255,.55), 0 0 20px rgba(138,91,255,.35) inset;
+}
+.brand-text{
+  font-weight:800;font-size:1.6rem;
+  background: linear-gradient(180deg,#7fd3ff 0%,#4bbdff 40%,#7aa3ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 24px rgba(52,213,255,.35);
+}
+.logout-pill{
+  border:1px solid var(--neon-pink);
+  color:#ffd8f4;text-decoration:none;border-radius:14px;
+  padding:.45rem 1rem;box-shadow:0 0 12px rgba(255,75,214,.35);
+}
+.logout-pill:hover{background:rgba(255,75,214,.12);color:#fff}
+
+/* Container with fixed width similar to reference */
+.container-page{max-width:1180px;margin:36px auto;padding:0 18px}
+
+/* ========================================================================== */
+/* Sidebar Icons (decorative like reference)                                  */
+/* ========================================================================== */
+.sidebar{
+  position:fixed;left:18px;top:86px;display:flex;flex-direction:column;gap:22px;z-index:2;
+}
+.icon-btn{
+  width:40px;height:40px;border-radius:10px;display:grid;place-items:center;
+  border:1px solid rgba(90,140,220,.35);
+  background: linear-gradient(180deg, rgba(28,46,99,.45), rgba(18,29,63,.25));
+  color:var(--neon-1);text-decoration:none;
+  box-shadow:0 0 12px rgba(52,213,255,.25) inset;
+}
+.icon-btn:hover{transform:translateY(-2px);box-shadow:0 0 16px rgba(52,213,255,.45) inset}
+
+/* ========================================================================== */
+/* Glass Containers / Cards                                                   */
+/* ========================================================================== */
+.container-glass{
+  background: var(--card);
+  border:1px solid rgba(84,126,207,.35);
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 10px 50px rgba(0,0,0,.35), 0 0 40px rgba(52,213,255,.08);
+  backdrop-filter: blur(10px);
+  color:var(--text-1);
+}
+.neon-card{
+  border:1.5px solid rgba(77,147,234,.5);
+  border-radius:20px;padding:28px;margin:0;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(24,44,94,.45), rgba(13,21,56,.25));
+  box-shadow:0 0 0 1px rgba(64,141,226,.15) inset, 0 30px 40px rgba(4,12,34,.6);
+}
+.neon-heading{
+  font-size:2rem;font-weight:800;margin:0 0 8px;
+  color:#8fe4ff;text-shadow:0 0 22px rgba(52,213,255,.45);
+}
+.neon-sub{color:var(--muted);margin:0 0 22px}
+
+/* ========================================================================== */
+/* Typography                                                                 */
+/* ========================================================================== */
+h1,h2,h3,h4{color:#e9f4ff;font-weight:800;letter-spacing:.2px}
+h2, h4{margin-bottom:.5rem}
+.text-muted{color:var(--muted)!important}
+.text-cyan{color:#8fe4ff}
+
+/* ========================================================================== */
+/* Forms                                                                      */
+/* ========================================================================== */
+form input, form textarea, select, .form-control, textarea{
+  background: rgba(10,16,38,.65) !important;
+  border:1px solid rgba(108,163,255,.35) !important;
+  color:#d7ecff !important;
+  border-radius:12px !important;
+}
+form input::placeholder, form textarea::placeholder{color:#98b3d6}
+textarea{min-height:120px;padding:12px 14px}
+label{color:#bcd6ff;margin-bottom:.35rem}
+
+/* ========================================================================== */
+/* Buttons                                                                    */
+/* ========================================================================== */
+.btn{border-radius:14px !important;border:1px solid rgba(94,173,255,.45) !important}
+.btn-primary{
+  background: linear-gradient(90deg, rgba(40,140,255,.35), rgba(47,214,255,.35)) !important;
+  color:#e9f6ff;box-shadow:0 0 24px rgba(52,213,255,.35);padding:10px;font-weight:600;
+}
+.btn-primary:hover{filter:brightness(1.15);transform:translateY(-2px)}
+
+.btn-success{
+  background: linear-gradient(90deg, rgba(35,209,139,.35), rgba(91,249,198,.25)) !important;
+  color:#eafff6;box-shadow:0 0 20px rgba(35,209,139,.35);padding:10px;font-weight:600;
+}
+.btn-success:hover{filter:brightness(1.1);transform:translateY(-2px)}
+
+.btn-danger{
+  background: linear-gradient(90deg, rgba(255,74,122,.35), rgba(255,130,170,.25)) !important;
+  color:#ffe9ef;padding:10px;font-weight:600;
+}
+.btn-danger:hover{filter:brightness(1.12);transform:translateY(-2px)}
+
+.btn-outline-secondary{
+  color:#b5c9ef;border-color:#5673a6 !important;background:transparent !important;padding:10px;
+}
+.btn-outline-secondary:hover{color:#e5efff;background:rgba(86,115,166,.15)!important}
+
+.neon-btn-big{
+  display:inline-block;text-align:center;width:220px;
+  padding:.95rem 1rem;border-radius:16px;border:1.5px solid var(--neon-1);
+  color:#cfe7ff;text-decoration:none;background:rgba(10,20,42,.35);
+  box-shadow:0 0 20px rgba(52,213,255,.25);
+}
+.neon-btn-big:hover{transform:translateY(-2px);box-shadow:0 0 26px rgba(52,213,255,.45)}
+
+/* ========================================================================== */
+/* Tables / DataTables                                                        */
+/* ========================================================================== */
+.table{
+  background: rgba(8,14,34,.7);color:#e8f2ff;border-radius:12px;overflow:hidden;
+}
+.table th{
+  background: rgba(255,255,255,0.08);
+  font-weight:700;color:#dff0ff;
+}
+.table td{background: rgba(0,0,0,0.35)}
+.table-responsive{border-radius:12px;overflow:hidden;border:1px solid rgba(108,163,255,.3)}
+.dataTables_wrapper .dataTables_filter input{
+  background: rgba(10,16,38,.65);color:#d7ecff;border:1px solid rgba(108,163,255,.35);
+  border-radius:10px;padding:.35rem .5rem;margin-left:.5rem;
+}
+
+/* ========================================================================== */
+/* Alerts                                                                     */
+/* ========================================================================== */
+.alert{border-radius:12px;font-weight:600}
+.alert-success{background:rgba(35,209,139,.15);border-color:rgba(35,209,139,.35);color:#bff0d7}
+.alert-danger{background:rgba(255,74,122,.12);border-color:rgba(255,74,122,.35);color:#ffd1dc}
+.alert-info{background:rgba(79,164,255,.14);border-color:rgba(79,164,255,.35);color:#d0e8ff}
+
+/* ========================================================================== */
+/* Auth Screens                                                               */
+/* ========================================================================== */
+.auth-wrap{max-width:520px;margin:56px auto}
+.auth-title{
+  font-weight:800;font-size:2.2rem;margin:0 0 10px;color:#9be8ff;text-align:center;
+  text-shadow:0 0 22px rgba(52,213,255,.35);
+}
+.auth-note{text-align:center;color:var(--muted)}
+
+/* ========================================================================== */
+/* Utilities / Layout                                                         */
+/* ========================================================================== */
+.grid-2{display:grid;gap:28px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:920px){.grid-2{grid-template-columns:1fr}.sidebar{display:none}}
+.center{display:flex;justify-content:center;align-items:center}
+.mt-2{margin-top:.5rem}.mt-3{margin-top:1rem}.mt-4{margin-top:1.5rem}
+.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:1rem}.mb-4{margin-bottom:1.5rem}
+a{color:#7fd3ff;text-decoration:none} a:hover{color:#a8e6ff}

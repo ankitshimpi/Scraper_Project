@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="neon-heading mb-1">Ad Report → Products</h2>
+<p class="neon-sub">Extract ASINs from your ad report Excel, then auto-run the Products scraper.</p>
+
+<div class="neon-card mb-4">
+  <form method="post" id="adreportForm" action="{{ url_for('run_adreport') }}">
+
+    <label>Ad Report Excel path</label>
+    <input class="form-control mb-3"
+           type="text"
+           name="file_path"
+           placeholder="Enter full path to your .xlsx ad report"
+           required>
+
+    <label>Marketplace</label>
+    <select class="form-control mb-3"
+            name="marketplace"
+            required>
+      <option value="">-- Select Marketplace --</option>
+      <!-- using the short marketplace list from amazon_products.html -->
+      <option value="india">Amazon India</option>
+      <option value="us">Amazon USA</option>
+      <option value="sg">Amazon Singapore</option>
+      <option value="ae">Amazon UAE</option>
+      <option value="uk">Amazon UK</option>
+    </select>
+
+    <label>Save folder path</label>
+    <input class="form-control mb-3"
+           type="text"
+           name="save_path"
+           placeholder="Enter save folder path"
+           required>
+
+    <label>File name</label>
+    <input class="form-control mb-3"
+           type="text"
+           name="file_name"
+           placeholder="Enter file name"
+           required>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary" type="submit">Run Ad Report → Products</button>
+      <a class="btn btn-outline-secondary" href="{{ url_for('dashboard') }}">Back</a>
+    </div>
+  </form>
+
+  <div id="adreportLoader"
+       class="text-center mt-3"
+       style="display:none;">
+    <div class="spinner-border" role="status"></div>
+    <p id="adreportStatus" class="mt-2">
+      Extracting ASINs and running Products scraper...
+    </p>
+  </div>
+</div>
+
+{% if tables %}
+  <h4 class="mt-4">Scraped Data</h4>
+
+  {% if saved_file %}
+    <a href="{{ url_for('download', file=saved_file) }}"
+       class="neon-btn-big mb-3">
+      Download Excel
+    </a>
+  {% endif %}
+
+  {% for sheet_name, table_html in tables.items() %}
+    <h5 class="mt-4 text-cyan">{{ sheet_name }}</h5>
+    <div class="table-responsive">{{ table_html | safe }}</div>
+  {% endfor %}
+{% endif %}
+
+<!-- scripts copied from your other pages so the UX matches -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+$(function(){
+  $("#adreportForm").on("submit", function(){
+    $("#adreportLoader").show();
+    $("#adreportStatus").text("Parsing ad report, collecting ASINs, running Products...");
+  });
+
+  $(".datatable").each(function(){
+    $(this).DataTable({
+      pageLength: 10,
+      lengthMenu: [5, 10, 25, 50, 100],
+      ordering: true,
+      searching: true
+    });
+  });
+});
+</script>
+{% endblock %}

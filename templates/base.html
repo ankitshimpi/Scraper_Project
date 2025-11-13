@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title if title else "Amazon Scraper" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <nav class="navbar navbar-dark">
+    <div class="container-page d-flex align-items-center justify-content-between">
+      <div class="brand-wrap">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <div class="brand-text">Spyra</div>
+      </div>
+
+      {% if session.user %}
+        <div class="d-flex align-items-center gap-3">
+          <span class="text-muted">Logged in as&nbsp;<strong class="text-cyan">{{ session['user'] }}</strong></span>
+          <a href="{{ url_for('logout') }}" class="logout-pill">Logout</a>
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- Decorative sidebar like the reference (links optional) -->
+  <div class="sidebar" aria-hidden="true">
+    <a class="icon-btn" href="{{ url_for('dashboard') }}" title="Home">
+      <!-- home icon -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 10.5L12 4l8 6.5V20a2 2 0 0 1-2 2h-3v-6H9v6H6a2 2 0 0 1-2-2v-9.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="icon-btn" href="{{ url_for('amazon_products_page') }}" title="Products">
+      <!-- document icon -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.5"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/></svg>
+    </a>
+    <a class="icon-btn" href="{{ url_for('competitor_page') }}" title="Competitor">
+      <!-- search icon -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </a>
+    <span class="icon-btn" title="Settings">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.5"/><path d="M19 12a7 7 0 0 0-.13-1.34l2.11-1.65-2-3.46-2.53 1A7.05 7.05 0 0 0 14 4.1V1h-4v3.1a7.05 7.05 0 0 0-2.45 1.45l-2.53-1-2 3.46L5.11 10.7A7 7 0 0 0 5 12a7 7 0 0 0 .13 1.34l-2.11 1.65 2 3.46 2.53-1A7.05 7.05 0 0 0 10 19.9V23h4v-3.1a7.05 7.05 0 0 0 2.45-1.45l2.53 1 2-3.46-2.11-1.65c.09-.44.13-.88.13-1.34Z" stroke="currentColor" stroke-width="1.2"/></svg>
+    </span>
+  </div>
+
+  <div class="container-page">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="container-glass">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+</body>
+</html>
